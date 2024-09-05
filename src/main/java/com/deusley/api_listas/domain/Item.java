@@ -1,9 +1,6 @@
 package com.deusley.api_listas.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,10 +12,14 @@ import lombok.NoArgsConstructor;
 public class Item {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String id;
     private String titulo;
-    private String estado;
     private boolean destacado;
+    private boolean concluido;
+
+    @ManyToOne
+    @JoinColumn(name = "lista_id")
+    private Lista lista;
 
 }
