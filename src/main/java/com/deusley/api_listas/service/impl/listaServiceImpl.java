@@ -17,23 +17,27 @@ public class listaServiceImpl implements ListaService {
 
 
     @Override
-    public Lista obterPorId(String id) {
+    public Lista obterPorId(Long id) {
         Optional<Lista> obj = listaRepository.findById(id);
         return obj.orElseThrow(RuntimeException::new);
     }
 
     @Override
     public List<Lista> obterTodasAsListas() {
-        return null;
+        return listaRepository.findAll();
     }
 
     @Override
     public Lista criarLista(Lista lista) {
-        return null;
+        return listaRepository.save(lista);
     }
 
     @Override
     public void deletarLista(Long id) {
+        obterPorId(id);
+        listaRepository.deleteById(id);
 
     }
+
 }
+

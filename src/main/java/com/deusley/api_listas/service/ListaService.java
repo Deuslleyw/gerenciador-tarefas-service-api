@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ListaService {
 
-    Lista obterPorId(String id);
+    Lista obterPorId(Long id);
 
     List<Lista> obterTodasAsListas();
 
