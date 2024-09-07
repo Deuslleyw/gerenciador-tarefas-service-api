@@ -17,6 +17,7 @@ public class ListaController {
 
     @GetMapping
     public List<Lista> getAllListas() {
+
         return listaService.obterTodasAsListas();
     }
 
