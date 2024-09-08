@@ -1,0 +1,233 @@
+openapi: 3.0.0
+info:
+  title: API de Gerenciamento de Listas e Itens
+  description: API para criar, gerenciar e visualizar listas e itens com destaque e priorização, desenvolvido para o teste da "Supera".
+  contact:
+    email: DeusleyDev@outlook.com
+
+  version: "1.0.0"
+
+
+servers:
+  - url: http://localhost:8080
+    description: Servidor local
+
+paths:
+  /api/v1/listas:
+    get:
+      summary: Obter todas as listas
+      operationId: getAllListas
+      responses:
+        '200':
+          description: Listas obtidas com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Lista'
+    post:
+      summary: Criar uma nova lista
+      operationId: createLista
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListaCreate'
+      responses:
+        '200':
+          description: Lista criada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Lista'
+        '400':
+          description: Requisição inválida
+  /api/v1/listas/{listaId}:
+    delete:
+      summary: Deletar uma lista por ID
+      operationId: deleteLista
+      parameters:
+        - name: listaId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID da lista a ser deletada
+      responses:
+        '200':
+          description: Lista deletada com sucesso
+        '404':
+          description: Lista não encontrada
+  /api/v1/listas/{listaId}/itens:
+    get:
+      summary: Obter todos os itens de uma lista
+      operationId: getItensByLista
+      parameters:
+        - name: listaId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID da lista
+      responses:
+        '200':
+          description: Itens da lista obtidos com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Item'
+        '404':
+          description: Lista não encontrada
+    post:
+      summary: Adicionar um item à lista
+      operationId: addItemToLista
+      parameters:
+        - name: listaId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID da lista
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemCreate'
+      responses:
+        '200':
+          description: Item adicionado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+        '404':
+          description: Lista não encontrada
+  /api/v1/listas/{listaId}/itens/{itemId}:
+    put:
+      summary: Atualizar um item em uma lista
+      operationId: updateItem
+      parameters:
+        - name: listaId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID da lista
+        - name: itemId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID do item a ser atualizado
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemUpdate'
+      responses:
+        '200':
+          description: Item atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+        '404':
+          description: Item ou lista não encontrados
+    delete:
+      summary: Remover um item de uma lista
+      operationId: deleteItem
+      parameters:
+        - name: listaId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID da lista
+        - name: itemId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID do item a ser removido
+      responses:
+        '200':
+          description: Item removido com sucesso
+        '404':
+          description: Item ou lista não encontrados
+
+components:
+  schemas:
+    Lista:
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+        itens:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+      example:
+        id: 1
+        nome: Lista de Compras
+        itens:
+          - id: 1
+            titulo: Comprar leite
+            destacado: false
+            concluido: false
+    ListaCreate:
+      type: object
+      properties:
+        nome:
+          type: string
+      example:
+        nome: Lista de Compras
+    Item:
+      type: object
+      properties:
+        id:
+          type: integer
+        titulo:
+          type: string
+        destacado:
+          type: boolean
+        concluido:
+          type: boolean
+      example:
+        id: 1
+        titulo: Comprar leite
+        destacado: false
+        concluido: false
+    ItemCreate:
+      type: object
+      properties:
+        titulo:
+          type: string
+        destacado:
+          type: boolean
+        concluido:
+          type: boolean
+      example:
+        titulo: Comprar leite
+        destacado: false
+        concluido: false
+    ItemUpdate:
+      type: object
+      properties:
+        titulo:
+          type: string
+        destacado:
+          type: boolean
+        concluido:
+          type: boolean
+      example:
+        titulo: Comprar pão
+        destacado: true
+        concluido: false

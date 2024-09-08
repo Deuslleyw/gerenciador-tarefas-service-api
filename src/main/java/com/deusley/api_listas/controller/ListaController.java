@@ -9,16 +9,22 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/v1/listas")
+@RequestMapping(value = "/listas")
 public class ListaController {
 
     @Autowired
     private ListaService listaService;
 
     @GetMapping
-    public List<Lista> getAllListas() {
+    public List<Lista> obterTodasAsListas() {
 
         return listaService.obterTodasAsListas();
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Lista> obterListaPorId(@PathVariable Long id) {
+        var lista = listaService.obterPorId(id);
+        return ResponseEntity.ok().body(lista);
     }
 
     @PostMapping

@@ -22,7 +22,7 @@ public class ItemController {
 
 
     @GetMapping
-    public List<Item> getItensPorLista(@PathVariable Long listaId) {
+    public List<Item> obterItensPorLista(@PathVariable Long listaId) {
         var lista = listaService.obterPorId(listaId);
         return lista.getItens();
     }
