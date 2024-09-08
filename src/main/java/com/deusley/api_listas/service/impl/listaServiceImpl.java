@@ -1,7 +1,8 @@
 package com.deusley.api_listas.service.impl;
 
+import com.deusley.api_listas.controller.request.ListaRequest;
 import com.deusley.api_listas.domain.Lista;
-import com.deusley.api_listas.dto.ListaDTO;
+import com.deusley.api_listas.controller.response.ListaResponse;
 import com.deusley.api_listas.mapper.ListaMapper;
 import com.deusley.api_listas.repositories.ListaRepository;
 import com.deusley.api_listas.service.ListaService;
@@ -22,22 +23,25 @@ public class listaServiceImpl implements ListaService {
 
 
     @Override
-    public Lista obterPorId(Long id) {
-        Optional<Lista> obj = listaRepository.findById(id);
-        return obj.orElseThrow(RuntimeException::new);
+    public ListaResponse obterPorId(Long id) {
+        var lista = listaRepository.findById(id);
+        return listaMapper.toListaResponse(lista.orElseThrow(
+                () -> new RuntimeException("Lista Não Encontrada")
+        ));
     }
 
     @Override
-    public List<ListaDTO> obterTodasAsListas() {
+    public List<ListaResponse> obterTodasAsListas() {
         var listas = listaRepository.findAll();
         return listas.stream().map(listaMapper::fromListaEntity).toList();
 
     }
 
     @Override
-    public Lista criarLista(Lista lista) {
-        var listaEntity = listaMapper.fromListaEntity(lista);
-        return listaRepository.save(lista);
+    public ListaResponse criarLista(ListaRequest listaRequest) {
+        var listaEntity = listaMapper.toListaEntity(listaRequest);
+        var response = listaRepository.save(listaEntity);
+        return listaMapper.toListaResponse(response);
     }
 
     @Override
@@ -47,5 +51,9 @@ public class listaServiceImpl implements ListaService {
 
     }
 
+
 }
+
+
+
 

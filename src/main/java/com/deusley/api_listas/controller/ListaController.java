@@ -1,7 +1,8 @@
 package com.deusley.api_listas.controller;
 
+import com.deusley.api_listas.controller.request.ListaRequest;
 import com.deusley.api_listas.domain.Lista;
-import com.deusley.api_listas.dto.ListaDTO;
+import com.deusley.api_listas.controller.response.ListaResponse;
 import com.deusley.api_listas.mapper.ListaMapper;
 import com.deusley.api_listas.service.ListaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,27 +24,23 @@ public class ListaController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<ListaDTO> obterTodasAsListas() {
+    public List<ListaResponse> obterTodasAsListas() {
         return listaService.obterTodasAsListas();
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Lista> obterListaPorId(@PathVariable Long id) {
+    public ResponseEntity<ListaResponse> obterListaPorId(@PathVariable Long id) {
         var lista = listaService.obterPorId(id);
         return ResponseEntity.ok().body(lista);
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Lista criarLista(@RequestBody ListaDTO listaDTO) {
-        var lista = listaMapper.toListaEntity(listaDTO);
-        listaService.criarLista(lista);
-        return lista;
+    public ResponseEntity<ListaResponse> criarLista(@RequestBody ListaRequest listaRequest) {
+        var tarefa = listaService.criarLista(listaRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).body(tarefa);
 
     }
-
-
-        @DeleteMapping("/{id}")
+            @DeleteMapping("/{id}")
         public ResponseEntity<Void> deletarLista (@PathVariable Long id){
             listaService.deletarLista(id);
             return ResponseEntity.noContent().build();

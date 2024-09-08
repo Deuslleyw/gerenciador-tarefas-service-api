@@ -1,17 +1,18 @@
 package com.deusley.api_listas.service;
 
+import com.deusley.api_listas.controller.request.ListaRequest;
 import com.deusley.api_listas.domain.Lista;
-import com.deusley.api_listas.dto.ListaDTO;
+import com.deusley.api_listas.controller.response.ListaResponse;
 
 import java.util.List;
 
 public interface ListaService {
 
-    Lista obterPorId(Long id);
+    ListaResponse obterPorId(Long id);
 
-    List<ListaDTO> obterTodasAsListas();
+    List<ListaResponse> obterTodasAsListas();
 
-    Lista criarLista(Lista lista);
+    ListaResponse criarLista(ListaRequest listaRequest);
 
     void deletarLista(Long id);
 

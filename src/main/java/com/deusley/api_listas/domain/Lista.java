@@ -1,6 +1,5 @@
 package com.deusley.api_listas.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -25,19 +24,6 @@ public class Lista {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "lista_id")
     private List<Item> itens = new ArrayList<>();
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

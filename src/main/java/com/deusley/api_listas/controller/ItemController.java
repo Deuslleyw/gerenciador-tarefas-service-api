@@ -1,7 +1,10 @@
 package com.deusley.api_listas.controller;
 
+import com.deusley.api_listas.controller.response.ListaResponse;
 import com.deusley.api_listas.domain.Item;
 import com.deusley.api_listas.domain.Lista;
+import com.deusley.api_listas.mapper.ListaMapper;
+import com.deusley.api_listas.repositories.ListaRepository;
 import com.deusley.api_listas.service.ItemService;
 import com.deusley.api_listas.service.ListaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,13 @@ public class ItemController {
     @Autowired
     private ListaService listaService;
 
+    @Autowired
+    private ListaRepository listaRepository;
+
+    @Autowired
+    private ListaMapper listaMapper;
+
+
 
     @GetMapping
     public List<Item> obterItensPorLista(@PathVariable Long listaId) {
@@ -29,7 +39,7 @@ public class ItemController {
 
     @PostMapping
     public Item adicionarItem(@PathVariable Long listaId, @RequestBody Item item) {
-        Lista lista = listaService.obterPorId(listaId);
+        var lista = obterListaPorId(listaId);
         item.setLista(lista);
         return itemService.adicionarItem(listaId, item);
     }
@@ -47,6 +57,11 @@ public class ItemController {
     public ResponseEntity<Void> removerItem(@PathVariable Long itemId) {
         itemService.removerItem(itemId);
         return ResponseEntity.noContent().build();
+    }
+    private Lista obterListaPorId(Long id){
+        return listaRepository.findById(id)
+                .orElseThrow(()->new RuntimeException("Lista Não Encontrada!"));
+
     }
 
 }

@@ -1,4 +1,4 @@
-package com.deusley.api_listas.dto;
+package com.deusley.api_listas.controller.response;
 
 import com.deusley.api_listas.domain.Item;
 import lombok.AllArgsConstructor;
@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ListaDTO {
+public class ListaResponse {
 
 
     private Long id;
