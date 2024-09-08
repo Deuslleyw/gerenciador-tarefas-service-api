@@ -1,6 +1,8 @@
 package com.deusley.api_listas.service.impl;
 
 import com.deusley.api_listas.domain.Lista;
+import com.deusley.api_listas.dto.ListaDTO;
+import com.deusley.api_listas.mapper.ListaMapper;
 import com.deusley.api_listas.repositories.ListaRepository;
 import com.deusley.api_listas.service.ListaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,9 @@ public class listaServiceImpl implements ListaService {
     @Autowired
     private ListaRepository listaRepository;
 
+    @Autowired
+    private ListaMapper listaMapper;
+
 
     @Override
     public Lista obterPorId(Long id) {
@@ -23,12 +28,15 @@ public class listaServiceImpl implements ListaService {
     }
 
     @Override
-    public List<Lista> obterTodasAsListas() {
-        return listaRepository.findAll();
+    public List<ListaDTO> obterTodasAsListas() {
+        var listas = listaRepository.findAll();
+        return listas.stream().map(listaMapper::fromListaEntity).toList();
+
     }
 
     @Override
     public Lista criarLista(Lista lista) {
+        var listaEntity = listaMapper.fromListaEntity(lista);
         return listaRepository.save(lista);
     }
 

@@ -1,5 +1,6 @@
 package com.deusley.api_listas.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,6 +19,7 @@ public class Item {
     private boolean destacado;
     private boolean concluido;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "lista_id")
     private Lista lista;
