@@ -41,12 +41,13 @@ public class TarefaController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @PutMapping("/{tarefaId}/itens")
+    @PutMapping("/{tarefaId}/itens/{itemId}")
     public ResponseEntity<TarefaResponse> atualizarItem(
             @PathVariable Long tarefaId,
+            @PathVariable Long itemId,
             @RequestBody ItemRequest itemRequest) {
 
-        var response = tarefaService.atualizarItem(tarefaId, itemRequest);
+        var response = tarefaService.atualizarItem(tarefaId,itemId, itemRequest);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
@@ -58,14 +59,14 @@ public class TarefaController {
     }
 
     @GetMapping
-    public ResponseEntity<List<TarefaResponse>> obterTodasAsTarefas() {
+    public ResponseEntity<List<TarefaResponse>> obterTodas() {
         var response = tarefaService.obterTodas();
         return ResponseEntity.ok().body(response);
 
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<TarefaResponse> obterListaPorId(@PathVariable Long id) {
+    public ResponseEntity<TarefaResponse> obterPorId(@PathVariable Long id) {
         var lista = tarefaService.obterPorId(id);
         return ResponseEntity.ok().body(lista);
     }

@@ -72,7 +72,7 @@ public class TarefaServiceImpl implements TarefaService {
     }
 
     @Override
-    public TarefaResponse atualizarItem(Long tarefaId, ItemRequest itemAtualizado) {
+    public TarefaResponse atualizarItem(Long tarefaId, Long itemId, ItemRequest itemAtualizado) {
         var tarefa = tarefaRepository.findById(tarefaId).orElseThrow(() -> new ObjectNotFoundException(
                 "Tarefa não encontrada"));
         Item item = new Item();
