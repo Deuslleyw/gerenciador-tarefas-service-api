@@ -1,9 +1,12 @@
-package com.deusley.api_listas.service.impl;
+package com.deusley.gerenciadorDeTarefasAPI.service.impl;
 
-import com.deusley.api_listas.domain.Item;
-import com.deusley.api_listas.repositories.ItemRepository;
-import com.deusley.api_listas.repositories.ListaRepository;
-import com.deusley.api_listas.service.ItemService;
+import com.deusley.gerenciadorDeTarefasAPI.controller.request.ItemRequest;
+import com.deusley.gerenciadorDeTarefasAPI.controller.response.ItemResponse;
+import com.deusley.gerenciadorDeTarefasAPI.domain.Item;
+import com.deusley.gerenciadorDeTarefasAPI.mapper.ItemMapper;
+import com.deusley.gerenciadorDeTarefasAPI.repositories.ItemRepository;
+import com.deusley.gerenciadorDeTarefasAPI.repositories.ListaRepository;
+import com.deusley.gerenciadorDeTarefasAPI.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +21,9 @@ public class ItemServiceImpl implements ItemService {
 
     @Autowired
     private ListaRepository listaRepository;
+
+    @Autowired
+    private ItemMapper itemMapper;
 
     @Override
     public List<Item> obterItensPorLista(Long listaId) {
@@ -42,13 +48,14 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public Item atualizarItem(Long itemId, Item itemAtualizado) {
+    public ItemResponse atualizarItem(Long itemId, ItemRequest itemAtualizado) {
         var item = itemRepository.findById(itemId).orElseThrow(() -> new IllegalArgumentException(
                 "Item não encontrado"));
         item.setTitulo(itemAtualizado.getTitulo());
         item.setDestacado(itemAtualizado.isDestacado());
         item.setConcluido(itemAtualizado.isConcluido());
-        return itemRepository.save(item);
+        var update =  itemRepository.save(item);
+        return itemMapper.toItemResponse(update);
     }
     @Override
     public void removerItem(Long itemId) {

@@ -1,16 +1,14 @@
-package com.deusley.api_listas.service.impl;
+package com.deusley.gerenciadorDeTarefasAPI.service.impl;
 
-import com.deusley.api_listas.controller.request.ListaRequest;
-import com.deusley.api_listas.domain.Lista;
-import com.deusley.api_listas.controller.response.ListaResponse;
-import com.deusley.api_listas.mapper.ListaMapper;
-import com.deusley.api_listas.repositories.ListaRepository;
-import com.deusley.api_listas.service.ListaService;
+import com.deusley.gerenciadorDeTarefasAPI.controller.request.ListaRequest;
+import com.deusley.gerenciadorDeTarefasAPI.controller.response.ListaResponse;
+import com.deusley.gerenciadorDeTarefasAPI.mapper.ListaMapper;
+import com.deusley.gerenciadorDeTarefasAPI.repositories.ListaRepository;
+import com.deusley.gerenciadorDeTarefasAPI.service.ListaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class listaServiceImpl implements ListaService {
@@ -26,7 +24,7 @@ public class listaServiceImpl implements ListaService {
     public ListaResponse obterPorId(Long id) {
         var lista = listaRepository.findById(id);
         return listaMapper.toListaResponse(lista.orElseThrow(
-                () -> new RuntimeException("Lista Não Encontrada")
+                () -> new RuntimeException("Lista não encontrada")
         ));
     }
 

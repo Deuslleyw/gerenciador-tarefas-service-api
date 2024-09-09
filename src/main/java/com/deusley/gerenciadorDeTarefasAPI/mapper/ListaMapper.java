@@ -1,8 +1,8 @@
-package com.deusley.api_listas.mapper;
+package com.deusley.gerenciadorDeTarefasAPI.mapper;
 
-import com.deusley.api_listas.controller.request.ListaRequest;
-import com.deusley.api_listas.domain.Lista;
-import com.deusley.api_listas.controller.response.ListaResponse;
+import com.deusley.gerenciadorDeTarefasAPI.controller.request.ListaRequest;
+import com.deusley.gerenciadorDeTarefasAPI.domain.Lista;
+import com.deusley.gerenciadorDeTarefasAPI.controller.response.ListaResponse;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
@@ -12,7 +12,6 @@ public interface ListaMapper {
     ListaResponse fromListaEntity(Lista lista);
 
     ListaResponse toListaRequest(ListaRequest listaRequest);
-
 
     Lista toListaEntity(ListaRequest listaRequest);
 }

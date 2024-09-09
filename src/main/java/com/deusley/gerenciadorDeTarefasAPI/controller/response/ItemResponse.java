@@ -1,6 +1,6 @@
-package com.deusley.api_listas.dto;
+package com.deusley.gerenciadorDeTarefasAPI.controller.response;
 
-import com.deusley.api_listas.domain.Lista;
+import com.deusley.gerenciadorDeTarefasAPI.domain.Lista;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class ItemDTO {
+public class ItemResponse {
 
     private Long id;
     private String titulo;

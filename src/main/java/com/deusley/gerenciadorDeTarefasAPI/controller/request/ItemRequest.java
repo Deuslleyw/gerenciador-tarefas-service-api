@@ -1,4 +1,4 @@
-package com.deusley.api_listas.controller.request;
+package com.deusley.gerenciadorDeTarefasAPI.controller.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

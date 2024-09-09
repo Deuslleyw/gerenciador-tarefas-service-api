@@ -1,4 +1,4 @@
-package com.deusley.api_listas.domain;
+package com.deusley.gerenciadorDeTarefasAPI.domain;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;

@@ -1,8 +1,7 @@
-package com.deusley.api_listas.service;
+package com.deusley.gerenciadorDeTarefasAPI.service;
 
-import com.deusley.api_listas.controller.request.ListaRequest;
-import com.deusley.api_listas.domain.Lista;
-import com.deusley.api_listas.controller.response.ListaResponse;
+import com.deusley.gerenciadorDeTarefasAPI.controller.request.ListaRequest;
+import com.deusley.gerenciadorDeTarefasAPI.controller.response.ListaResponse;
 
 import java.util.List;
 

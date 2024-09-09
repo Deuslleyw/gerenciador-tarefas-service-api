@@ -1,6 +1,6 @@
-package com.deusley.api_listas.controller.response;
+package com.deusley.gerenciadorDeTarefasAPI.controller.response;
 
-import com.deusley.api_listas.domain.Item;
+import com.deusley.gerenciadorDeTarefasAPI.domain.Item;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

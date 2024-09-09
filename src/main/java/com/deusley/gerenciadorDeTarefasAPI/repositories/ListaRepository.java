@@ -1,6 +1,6 @@
-package com.deusley.api_listas.repositories;
+package com.deusley.gerenciadorDeTarefasAPI.repositories;
 
-import com.deusley.api_listas.domain.Lista;
+import com.deusley.gerenciadorDeTarefasAPI.domain.Lista;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

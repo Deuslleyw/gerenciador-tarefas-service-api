@@ -1,12 +1,11 @@
-package com.deusley.api_listas.controller;
+package com.deusley.gerenciadorDeTarefasAPI.controller;
 
-import com.deusley.api_listas.controller.response.ListaResponse;
-import com.deusley.api_listas.domain.Item;
-import com.deusley.api_listas.domain.Lista;
-import com.deusley.api_listas.mapper.ListaMapper;
-import com.deusley.api_listas.repositories.ListaRepository;
-import com.deusley.api_listas.service.ItemService;
-import com.deusley.api_listas.service.ListaService;
+import com.deusley.gerenciadorDeTarefasAPI.domain.Item;
+import com.deusley.gerenciadorDeTarefasAPI.domain.Lista;
+import com.deusley.gerenciadorDeTarefasAPI.mapper.ListaMapper;
+import com.deusley.gerenciadorDeTarefasAPI.repositories.ListaRepository;
+import com.deusley.gerenciadorDeTarefasAPI.service.ItemService;
+import com.deusley.gerenciadorDeTarefasAPI.service.ListaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

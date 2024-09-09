@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.deusley</groupId>
-	<artifactId>api-listas</artifactId>
+	<artifactId>gerenciador-tarefas-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>api-listas</name>
 	<description>desafio Supera </description>
