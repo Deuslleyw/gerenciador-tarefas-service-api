@@ -16,6 +16,7 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String titulo;
+
     private boolean destacado;
     private boolean concluido;
 

@@ -2,6 +2,7 @@ package com.deusley.gerenciadorDeTarefasAPI.controller;
 
 import com.deusley.gerenciadorDeTarefasAPI.domain.Item;
 import com.deusley.gerenciadorDeTarefasAPI.domain.Lista;
+import com.deusley.gerenciadorDeTarefasAPI.exceptions.ObjectNotFoundException;
 import com.deusley.gerenciadorDeTarefasAPI.mapper.ListaMapper;
 import com.deusley.gerenciadorDeTarefasAPI.repositories.ListaRepository;
 import com.deusley.gerenciadorDeTarefasAPI.service.ItemService;
@@ -57,9 +58,10 @@ public class ItemController {
         itemService.removerItem(itemId);
         return ResponseEntity.noContent().build();
     }
+
     private Lista obterListaPorId(Long id){
         return listaRepository.findById(id)
-                .orElseThrow(()->new RuntimeException("Lista Não Encontrada!"));
+                .orElseThrow(()->new ObjectNotFoundException("Lista Não Encontrada!"));
 
     }
 

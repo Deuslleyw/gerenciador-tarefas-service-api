@@ -2,6 +2,7 @@ package com.deusley.gerenciadorDeTarefasAPI.service.impl;
 
 import com.deusley.gerenciadorDeTarefasAPI.controller.request.ListaRequest;
 import com.deusley.gerenciadorDeTarefasAPI.controller.response.ListaResponse;
+import com.deusley.gerenciadorDeTarefasAPI.exceptions.ObjectNotFoundException;
 import com.deusley.gerenciadorDeTarefasAPI.mapper.ListaMapper;
 import com.deusley.gerenciadorDeTarefasAPI.repositories.ListaRepository;
 import com.deusley.gerenciadorDeTarefasAPI.service.ListaService;
@@ -24,7 +25,7 @@ public class listaServiceImpl implements ListaService {
     public ListaResponse obterPorId(Long id) {
         var lista = listaRepository.findById(id);
         return listaMapper.toListaResponse(lista.orElseThrow(
-                () -> new RuntimeException("Lista não encontrada")
+                () -> new ObjectNotFoundException("Lista não encontrada")
         ));
     }
 
