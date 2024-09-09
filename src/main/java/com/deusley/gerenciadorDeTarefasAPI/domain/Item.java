@@ -1,5 +1,6 @@
 package com.deusley.gerenciadorDeTarefasAPI.domain;
 
+import com.deusley.gerenciadorDeTarefasAPI.enums.Estado;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -17,12 +18,13 @@ public class Item {
     private Long id;
     private String titulo;
 
+    private Estado estado;
+
     private boolean destacado;
-    private boolean concluido;
 
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "lista_id")
-    private Lista lista;
+    private Tarefa tarefa;
 
 }

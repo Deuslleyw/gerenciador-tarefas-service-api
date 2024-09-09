@@ -3,8 +3,8 @@ package com.deusley.gerenciadorDeTarefasAPI.controller;
 
 
 import com.deusley.gerenciadorDeTarefasAPI.controller.request.ListaRequest;
-import com.deusley.gerenciadorDeTarefasAPI.controller.response.ListaResponse;
-import com.deusley.gerenciadorDeTarefasAPI.service.ListaService;
+import com.deusley.gerenciadorDeTarefasAPI.controller.response.TarefaResponse;
+import com.deusley.gerenciadorDeTarefasAPI.service.TarefaService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
@@ -15,7 +15,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -25,11 +24,10 @@ import static org.mockito.BDDMockito.willReturn;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
-@ActiveProfiles(value = "test")
 @AutoConfigureMockMvc
 @ExtendWith({SpringExtension.class})
-@WebMvcTest(ListaController.class)
-public class ListaControllerTest {
+@WebMvcTest(TarefaController.class)
+public class TarefaControllerTest {
 
     private static final String URI_PATH = "/listas";
 
@@ -37,7 +35,7 @@ public class ListaControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private ListaService listaService;
+    private TarefaService tarefaService;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -50,11 +48,11 @@ public class ListaControllerTest {
         listaRequest.setNome("Minha Lista");
 
         // Mock do service
-        ListaResponse listaResponse = new ListaResponse();
-        listaResponse.setId(1L);
-        listaResponse.setNome("Minha Lista");
+        TarefaResponse tarefaResponse = new TarefaResponse();
+        tarefaResponse.setId(1L);
+        tarefaResponse.setNome("Minha Lista");
 
-        willReturn(listaResponse).given(listaService).criarLista(Mockito.any(ListaRequest.class));
+        willReturn(tarefaResponse).given(tarefaService).criarLista(Mockito.any(ListaRequest.class));
 
         String json = objectMapper.writeValueAsString(listaRequest);
 

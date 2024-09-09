@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ListaResponse {
+public class TarefaResponse {
 
 
     private Long id;
