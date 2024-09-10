@@ -3,9 +3,6 @@ package com.deusley.gerenciadorDeTarefasAPI.controller;
 import com.deusley.gerenciadorDeTarefasAPI.controller.request.ItemRequest;
 import com.deusley.gerenciadorDeTarefasAPI.controller.request.ListaRequest;
 import com.deusley.gerenciadorDeTarefasAPI.controller.response.TarefaResponse;
-import com.deusley.gerenciadorDeTarefasAPI.domain.Item;
-import com.deusley.gerenciadorDeTarefasAPI.domain.Tarefa;
-import com.deusley.gerenciadorDeTarefasAPI.exceptions.ObjectNotFoundException;
 import com.deusley.gerenciadorDeTarefasAPI.mapper.TarefaMapper;
 import com.deusley.gerenciadorDeTarefasAPI.repositories.TarefaRepository;
 import com.deusley.gerenciadorDeTarefasAPI.service.TarefaService;
@@ -20,62 +17,82 @@ import java.util.List;
 @RequestMapping(value = "/api/v1/tarefas")
 public class TarefaController {
 
-    @Autowired
-    private TarefaService tarefaService;
-    @Autowired
-    private TarefaMapper tarefaMapper;
-    @Autowired
-    private TarefaRepository tarefaRepository;
 
+    private final TarefaService tarefaService;
+    private final TarefaMapper tarefaMapper;
+    private final TarefaRepository tarefaRepository;
+
+    @Autowired
+    public TarefaController(TarefaService tarefaService, TarefaMapper tarefaMapper, TarefaRepository tarefaRepository){
+        this.tarefaService = tarefaService;
+        this.tarefaMapper = tarefaMapper;
+        this.tarefaRepository = tarefaRepository;
+    }
 
     @PostMapping
-    public ResponseEntity<TarefaResponse> criar(@RequestBody ListaRequest listaRequest) {
-        var tarefa = tarefaService.criar(listaRequest);
+    public ResponseEntity<TarefaResponse> criar(
+          @RequestBody ListaRequest request){
+        var tarefa = tarefaService.criar(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(tarefa);
 
     }
 
+    @GetMapping
+    public ResponseEntity<List<TarefaResponse>> obterTodas(){
+        var response = tarefaService.obterTodas();
+        return ResponseEntity.ok().body(response);
+
+    }
+
+    @GetMapping(value = "/{tarefaId}")
+    public ResponseEntity<TarefaResponse> obterPorId(
+          @PathVariable Long tarefaId){
+        var lista = tarefaService.obterPorId(tarefaId);
+        return ResponseEntity.ok().body(lista);
+    }
+
+
+    @DeleteMapping("/{tarefaId}")
+    public ResponseEntity<Void> deleta(@PathVariable Long tarefaId){
+        tarefaService.deletar(tarefaId);
+        return ResponseEntity.noContent().build();
+    }
+
     @PostMapping("/{tarefaId}/itens")
-    public ResponseEntity<Void> adicionarItem(@PathVariable Long tarefaId, @RequestBody ItemRequest item) {
+    public ResponseEntity<Void> adicionarItem(
+          @PathVariable Long tarefaId,
+          @RequestBody ItemRequest item){
         tarefaService.adicionarItem(tarefaId, item);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @PutMapping("/{tarefaId}/itens/{itemId}")
     public ResponseEntity<TarefaResponse> atualizarItem(
-            @PathVariable Long tarefaId,
-            @PathVariable Long itemId,
-            @RequestBody ItemRequest itemRequest) {
+          @PathVariable Long tarefaId,
+          @PathVariable Long itemId,
+          @RequestBody ItemRequest itemRequest){
 
-        var response = tarefaService.atualizarItem(tarefaId,itemId, itemRequest);
+        var response = tarefaService.atualizarItem(tarefaId, itemId, itemRequest);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @DeleteMapping("/{tarefaId}/itens/{itemId}")
-    public ResponseEntity<Void> removerItem(@PathVariable Long tarefaId,
-                                            @PathVariable Long itemId) {
+    public ResponseEntity<Void> removerItem(
+          @PathVariable Long tarefaId,
+          @PathVariable Long itemId){
         tarefaService.removerItem(tarefaId, itemId);
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping
-    public ResponseEntity<List<TarefaResponse>> obterTodas() {
-        var response = tarefaService.obterTodas();
-        return ResponseEntity.ok().body(response);
+    @PatchMapping("/{tarefaId}/itens/{itemId}/estado")
+    public ResponseEntity<TarefaResponse> alterarEstado(
+          @PathVariable Long tarefaId,
+          @PathVariable Long itemId) {
 
-    }
-
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<TarefaResponse> obterPorId(@PathVariable Long id) {
-        var lista = tarefaService.obterPorId(id);
-        return ResponseEntity.ok().body(lista);
+        var response = tarefaService.alterarEstado(tarefaId, itemId);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleta(@PathVariable Long id) {
-        tarefaService.deletar(id);
-        return ResponseEntity.noContent().build();
-    }
 
 }

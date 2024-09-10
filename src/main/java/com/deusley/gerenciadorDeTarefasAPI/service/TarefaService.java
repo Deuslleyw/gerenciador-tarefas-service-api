@@ -18,10 +18,9 @@ public interface TarefaService {
 
     TarefaResponse adicionarItem(Long tarefaId, ItemRequest itemRequest);
 
-    TarefaResponse atualizarItem(Long tarefaId,Long itemId, ItemRequest itemAtualizado);
+    TarefaResponse atualizarItem(Long tarefaId, Long itemId, ItemRequest itemAtualizado);
 
     TarefaResponse removerItem(Long tarefaId, Long itemId);
 
     TarefaResponse alterarEstado(Long tarefaId, Long itemId);
-
 }

@@ -10,8 +10,6 @@ public interface TarefaMapper {
 
     TarefaResponse toListaResponse(Tarefa tarefa);
     TarefaResponse fromListaEntity(Tarefa tarefa);
-
-    TarefaResponse toListaRequest(ListaRequest listaRequest);
-
     Tarefa toListaEntity(ListaRequest listaRequest);
+
 }

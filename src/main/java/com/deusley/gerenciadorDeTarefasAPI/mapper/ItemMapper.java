@@ -8,13 +8,6 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface ItemMapper {
 
-
-    ItemResponse toItemResponse(Item item);
     Item toItem(ItemRequest itemRequest);
-
-    ItemResponse fromItemEntity(Item item);
-
-    ItemResponse toItemRequest(ItemRequest itemRequest);
-
 
 }
